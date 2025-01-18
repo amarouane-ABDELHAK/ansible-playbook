@@ -12,10 +12,11 @@
         state: present
 
     - name: Install NVIDIA drivers and CUDA
-      shell: |
+      command: >
+        bash -c "
+        echo 'works'
         ls -al
-      args:
-        warn: false
+        "
 
     - name: Install Python dependencies
       pip:
