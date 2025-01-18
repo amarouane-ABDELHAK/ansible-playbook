@@ -1,0 +1,27 @@
+---
+- name: Setup environment for foundation model training
+  hosts: ubuntu2
+  become: yes
+  tasks:
+    - name: Install required system packages
+      apt:
+        name: 
+          - python3-pip
+          - git
+          - build-essential
+        state: present
+
+    - name: Install NVIDIA drivers and CUDA
+      shell: |
+        env >> /tmp/envs 
+      args:
+        warn: false
+
+    - name: Install Python dependencies
+      pip:
+        name: 
+          - requests
+        state: present
+        executable: pip3
+
+ 
