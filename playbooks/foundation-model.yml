@@ -23,12 +23,11 @@
         state: present
 
     - name: Create a Python virtual environment
-      command: >
-        bash -c "
-        python3 -m venv /opt/myenv
-        echo "requests" > /opt/myenv/requirements.txt
-        "
-        
+      command: python3 -m venv /opt/myenv
+
+    - name: Add requiremnets
+      command: echo "requests" > /opt/myenv/requirements.txt
+    
     - name: Install Python packages in the virtual environment
       pip:
         requirements: /opt/myenv/requirements.txt
