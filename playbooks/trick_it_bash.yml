@@ -1,0 +1,10 @@
+---
+- hosts: ubuntu3
+  become: yes
+  tasks:
+    - name: Copy bash_file to the server
+      copy:
+        src: my_bash.sh
+        dest: /tmp/my_bash.sh
+    - name: Run the bash script
+      command: bash /tmp/my_bash.sh
