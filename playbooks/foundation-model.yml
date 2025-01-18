@@ -17,12 +17,27 @@
         echo 'works'
         ls -al
         "
-
-    - name: Install Python dependencies
-      pip:
-        name: 
-          - requests
+    - name: Install virtualenv
+      apt:
+        name: python3-venv
         state: present
-        executable: pip3
+
+    - name: Create a Python virtual environment
+      command: >
+        bash -c "
+        python3 -m venv /opt/myenv
+        echo "requests" > /opt/myenv/requirements.txt
+        "
+        
+    - name: Install Python packages in the virtual environment
+      pip:
+        requirements: /opt/myenv/requirements.txt
+        virtualenv: /opt/myenv
+        - name: Install Python dependencies
+          pip:
+            name: 
+              - requests
+            state: present
+            executable: pip3
 
  
