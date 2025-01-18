@@ -33,11 +33,6 @@
       pip:
         requirements: /opt/myenv/requirements.txt
         virtualenv: /opt/myenv
-        - name: Install Python dependencies
-          pip:
-            name: 
-              - requests
-            state: present
-            executable: pip3
+
 
  
