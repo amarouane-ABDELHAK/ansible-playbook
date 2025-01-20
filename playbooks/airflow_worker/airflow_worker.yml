@@ -54,7 +54,6 @@
       ansible.builtin.command:
         cmd: su - airflow -c "bash /home/airflow/miniconda.sh -b -u -p /home/airflow/miniconda3"
         creates: /home/airflow/miniconda3
-      become_user: airflow
 
     - name: Install Python 3.11
       ansible.builtin.command:
