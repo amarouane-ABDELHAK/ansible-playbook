@@ -52,7 +52,7 @@
 
     - name: Run Miniconda installer
       ansible.builtin.command:
-        cmd: bash /home/airflow/miniconda.sh -b -u -p /home/airflow/miniconda3
+        cmd: su - airflow -c "bash /home/airflow/miniconda.sh -b -u -p /home/airflow/miniconda3"
         creates: /home/airflow/miniconda3
       become_user: airflow
 
