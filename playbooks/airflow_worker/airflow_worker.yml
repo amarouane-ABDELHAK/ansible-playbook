@@ -80,4 +80,3 @@
         - "AIRFLOW_HOME=/opt/airflow"
         - "TZ=UTC"
         - "PYTHONPATH=/opt/airflow"
-      state: present
