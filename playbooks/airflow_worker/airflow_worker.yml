@@ -60,6 +60,7 @@
         cmd: /home/airflow/miniconda3/bin/conda create -n py11 --yes python=3.11
         creates: /home/airflow/miniconda3/envs/py11
       become_user: airflow
+      become_method: su
 
     - name: Upgrade pip and install Airflow
       ansible.builtin.shell:
