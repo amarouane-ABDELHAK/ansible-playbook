@@ -10,7 +10,7 @@ CGID=0
 AIRFLOW_HOME=/opt/airflow
 
 # Create group and user
-groupadd -g "$GID" -o "$UNAME"
+groupadd -g "$CGID" -o "$UNAME"
 useradd -m -u "$CUID" -g "$CGID" -o -s /bin/bash "$UNAME"
 
 # Create and set permissions for the AIRFLOW_HOME directory
