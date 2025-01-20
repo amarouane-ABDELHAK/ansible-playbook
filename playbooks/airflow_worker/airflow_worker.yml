@@ -1,10 +1,83 @@
----
-- hosts: ubuntu2
+- name: Ensure the environment is set up
+  hosts: ubuntu2
   become: yes
   tasks:
-    - name: Copy bash_file to the server
-      copy:
-        src: config.sh
-        dest: /tmp/config.sh
-    - name: Run the bash script
-      command: bash /tmp/config.sh
+    - name: Create the airflow group
+      ansible.builtin.group:
+        name: airflow
+        gid: 50000
+        state: present
+
+    - name: Create the airflow user
+      ansible.builtin.user:
+        name: airflow
+        uid: 50000
+        group: airflow
+        shell: /bin/bash
+        state: present
+        create_home: yes
+
+    - name: Create the AIRFLOW_HOME directory
+      ansible.builtin.file:
+        path: /opt/airflow
+        state: directory
+        owner: airflow
+        group: airflow
+        mode: '0755'
+
+    - name: Install required packages
+      ansible.builtin.apt:
+        name:
+          - gcc
+          - libc6-dev
+          - libcurl4-openssl-dev
+          - libssl-dev
+        state: present
+        update_cache: yes
+
+    - name: Clean up unnecessary packages
+      ansible.builtin.apt:
+        name: '*'
+        state: absent
+        autoremove: yes
+        purge: yes
+
+    - name: Download and install Miniconda
+      ansible.builtin.get_url:
+        url: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+        dest: /home/airflow/miniconda.sh
+        owner: airflow
+        group: airflow
+        mode: '0755'
+
+    - name: Run Miniconda installer
+      ansible.builtin.command:
+        cmd: bash /home/airflow/miniconda.sh -b -u -p /home/airflow/miniconda3
+        creates: /home/airflow/miniconda3
+      become_user: airflow
+
+    - name: Install Python 3.11
+      ansible.builtin.command:
+        cmd: /home/airflow/miniconda3/bin/conda create -n py11 --yes python=3.11
+        creates: /home/airflow/miniconda3/envs/py11
+      become_user: airflow
+
+    - name: Upgrade pip and install Airflow
+      ansible.builtin.shell:
+        cmd: |
+          source /home/airflow/miniconda3/bin/activate py11
+          pip install --upgrade pip
+          pip install "apache-airflow[celery,amazon]==2.8.4" \
+            --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.8.4/constraints-3.11.txt"
+      become_user: airflow
+
+    - name: Set environment variables
+      ansible.builtin.lineinfile:
+        path: /etc/environment
+        line: "{{ item }}"
+        create: yes
+      loop:
+        - "AIRFLOW_HOME=/opt/airflow"
+        - "TZ=UTC"
+        - "PYTHONPATH=/opt/airflow"
+      state: present
