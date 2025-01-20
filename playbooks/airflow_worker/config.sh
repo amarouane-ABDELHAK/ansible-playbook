@@ -5,13 +5,13 @@ set -e
 # Define variables
 AIRFLOW_VERSION=2.8.4
 UNAME=airflow
-UID=50000
-GID=0
+CUID=50000
+CGID=0
 AIRFLOW_HOME=/opt/airflow
 
 # Create group and user
 groupadd -g "$GID" -o "$UNAME"
-useradd -m -u "$UID" -g "$GID" -o -s /bin/bash "$UNAME"
+useradd -m -u "$CUID" -g "$CGID" -o -s /bin/bash "$UNAME"
 
 # Create and set permissions for the AIRFLOW_HOME directory
 mkdir -p "$AIRFLOW_HOME"
