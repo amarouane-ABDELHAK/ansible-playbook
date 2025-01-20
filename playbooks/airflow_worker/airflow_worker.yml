@@ -80,3 +80,4 @@
         - "AIRFLOW_HOME=/opt/airflow"
         - "TZ=UTC"
         - "PYTHONPATH=/opt/airflow"
+      become_user: airflow
