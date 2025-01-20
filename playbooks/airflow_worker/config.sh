@@ -20,7 +20,7 @@ chown "$UNAME:$GID" "$AIRFLOW_HOME"
 # Update and install required system packages
 apt-get -y update
 apt-get install -y --no-install-recommends \
-    gcc libc6-dev libcurl4-openssl-dev libssl-dev
+    curl gcc libc6-dev libcurl4-openssl-dev libssl-dev
 apt-get autoremove -yqq --purge
 apt-get clean
 rm -rf /var/lib/apt/lists/*
