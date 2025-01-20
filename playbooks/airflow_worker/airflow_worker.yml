@@ -4,7 +4,7 @@
   tasks:
     - name: Copy bash_file to the server
       copy:
-        src: ./airflow_worker/config.sh
+        src: config.sh
         dest: /tmp/config.sh
     - name: Run the bash script
       command: bash /tmp/config.sh
