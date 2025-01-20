@@ -52,8 +52,10 @@
 
     - name: Run Miniconda installer
       ansible.builtin.command:
-        cmd: su - airflow -c "bash /home/airflow/miniconda.sh -b -u -p /home/airflow/miniconda3"
+        cmd: bash /home/airflow/miniconda.sh -b -u -p /home/airflow/miniconda3
         creates: /home/airflow/miniconda3
+      become_user: airflow
+      become_method: su
 
     - name: Install Python 3.11
       ansible.builtin.command:
@@ -70,6 +72,7 @@
           pip install "apache-airflow[celery,amazon]==2.8.4" \
             --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.8.4/constraints-3.11.txt"
       become_user: airflow
+      become_method: su
 
     - name: Set environment variables
       ansible.builtin.lineinfile:
@@ -81,3 +84,4 @@
         - "TZ=UTC"
         - "PYTHONPATH=/opt/airflow"
       become_user: airflow
+      become_method: su
