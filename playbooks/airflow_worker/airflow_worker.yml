@@ -1,5 +1,5 @@
-- name: Ensure the environment is set up
-  hosts: ubuntu2
+- name: Airflow Worker is setup
+  hosts: all
   become: yes
   tasks:
     - name: Create the airflow group
@@ -92,5 +92,14 @@
         - "AIRFLOW__WEBSERVER__INSTANCE_NAME=${AIRFLOW__WEBSERVER__INSTANCE_NAME:-VEDA-SM2A-Airflow}"
         - "AIRFLOW__LOGGING__LOGGING_LEVE=DEBUG"
         - "AIRFLOW__CORE__LOAD_EXAMPLE=false"
+      become_user: airflow
+      become_method: su
+
+    - name: Create the airflow.cfg file
+        src: airflow_worker_conf/airflow.cfg
+        dest: /opt/airflow/airflow.cfg
+        owner: airflow
+        group: airflow
+        mode: '0644'
       become_user: airflow
       become_method: su
