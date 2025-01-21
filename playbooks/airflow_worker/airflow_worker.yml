@@ -81,6 +81,7 @@
         line: "{{ item }}"
         create: yes
       loop:
+        - "source /home/airflow/miniconda3/bin/activate py11"
         - "AIRFLOW_HOME=/opt/airflow"
         - "TZ=UTC"
         - "PYTHONPATH=/opt/airflow"
