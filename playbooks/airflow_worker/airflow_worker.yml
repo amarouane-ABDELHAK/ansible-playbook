@@ -77,7 +77,7 @@
 
     - name: Set environment variables
       ansible.builtin.lineinfile:
-        path: /etc/environment
+        path: /tmp/airflow_environments.sh
         line: "{{ item }}"
         create: yes
       loop:
