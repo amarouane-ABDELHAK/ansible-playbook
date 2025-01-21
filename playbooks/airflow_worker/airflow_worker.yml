@@ -96,6 +96,7 @@
       become_method: su
 
     - name: Create the airflow.cfg file
+      ansible.builtin.copy:
         src: airflow_worker_conf/airflow.cfg
         dest: /opt/airflow/airflow.cfg
         owner: airflow
