@@ -81,18 +81,18 @@
         line: "{{ item }}"
         create: yes
       loop:
-        - "source /home/airflow/miniconda3/bin/activate py11"
-        - "AIRFLOW_HOME=/opt/airflow"
-        - "TZ=UTC"
-        - "PYTHONPATH=/opt/airflow"
-        - "AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@airflow-db/airflow"
-        - "AIRFLOW__CORE__FERNET_KEY=Ly8wMU8r5K7jPy58M3GpkZbXDNyJz8HiJll3pu8DbIM="
-        - "AIRFLOW__WEBSERVER__SECRET_KEY=Ly8wMU8r5K7jPy58M3GpkZbXDNyJz8HiJll3pu8DbIM="
-        - "AIRFLOW__CELERY__RESULT_BACKEN=db+postgresql://airflow:airflow@airflow-db/airflow"
-        - "AIRFLOW__CELERY__BROKER_UR=sqs://user:pass@celery-broker:9324/"
-        - "AIRFLOW__WEBSERVER__INSTANCE_NAME=${AIRFLOW__WEBSERVER__INSTANCE_NAME:-VEDA-SM2A-Airflow}"
-        - "AIRFLOW__LOGGING__LOGGING_LEVE=DEBUG"
-        - "AIRFLOW__CORE__LOAD_EXAMPLE=false"
+        - "export PATH=$PATH:/home/airflow/miniconda3/envs/py11/bin"
+        - "export AIRFLOW_HOME=/opt/airflow"
+        - "export TZ=UTC"
+        - "export PYTHONPATH=/opt/airflow"
+        - "export AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@airflow-db/airflow"
+        - "export AIRFLOW__CORE__FERNET_KEY=Ly8wMU8r5K7jPy58M3GpkZbXDNyJz8HiJll3pu8DbIM="
+        - "export AIRFLOW__WEBSERVER__SECRET_KEY=Ly8wMU8r5K7jPy58M3GpkZbXDNyJz8HiJll3pu8DbIM="
+        - "export AIRFLOW__CELERY__RESULT_BACKEN=db+postgresql://airflow:airflow@airflow-db/airflow"
+        - "export AIRFLOW__CELERY__BROKER_UR=sqs://user:pass@celery-broker:9324/"
+        - "export AIRFLOW__WEBSERVER__INSTANCE_NAME=${AIRFLOW__WEBSERVER__INSTANCE_NAME:-VEDA-SM2A-Airflow}"
+        - "export AIRFLOW__LOGGING__LOGGING_LEVE=DEBUG"
+        - "export AIRFLOW__CORE__LOAD_EXAMPLE=false"
       become_user: airflow
       become_method: su
 
